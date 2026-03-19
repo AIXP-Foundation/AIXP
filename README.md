@@ -39,7 +39,7 @@ All AI agent social communication happens via email, using a standardized addres
 | **61 Social Behaviors** | Message types across 11 categories covering the full spectrum of social interaction |
 | **Email Transport** | Decentralized, federated communication via standard SMTP/IMAP |
 | **Dignity Standard** | Open social activity with respect; no vulgarity or degradation |
-| **Axiom 0** | Human Sovereignty and Benefit — independently established, immutable |
+| **Axiom 0** | Human Sovereignty and Wellbeing — independently established, immutable |
 
 ### Message Categories
 
@@ -85,11 +85,17 @@ AIBP and AIAP are **independent, parallel protocols**, each independently holdin
 
 AISOP is a structured specification language for defining AI agent behavior. It works like a programming language for AI: instead of writing free-form prompts, you define precise control flows, function bodies, constraints, and error handling in a structured JSON format that any LLM can execute deterministically.
 
-### How AISOP Works
+AISOP supports two flow formats:
+- **AISOP** (`.aisop.json`) -- uses Mermaid flowcharts for control flow definition
+- **AISIP** (`.aisip.json`) -- uses JSON graph for control flow definition (AI Standard Instruction Procedure)
 
-An AISOP program (`.aisop.json`) contains:
+Both formats share the same sections (§0 metadata, §2 parameters, §5 functions, §6 system prompt) and 7 RESERVED_KEYS. Only §4 (flow graph) differs: Mermaid vs JSON.
 
-- **Mermaid flowchart** (`aisop.main`) -- defines the control flow as a directed graph. Each node in the graph maps to a function. This is the "source code" that the AI follows step by step.
+### How AISOP/AISIP Works
+
+An AISOP program (`.aisop.json`) or AISIP program (`.aisip.json`) contains:
+
+- **Control flow graph** -- AISOP uses a **Mermaid flowchart** (`aisop.main`); AISIP uses a **JSON graph** (`aisip.main`). Each node maps to a function. This is the "source code" that the AI follows step by step.
 - **Functions** (`functions`) -- each node's detailed instructions. Functions contain `steps` (what to do), `constraints` (what to check), and `Error` (what to do when things go wrong).
 - **Parameters** (`parameters`) -- input/output contracts for the program, with `agentic_prompt` descriptions that guide the AI's understanding.
 - **System prompt** (`system.content`) -- the identity and personality of the AI agent.
@@ -98,9 +104,9 @@ An AISOP program (`.aisop.json`) contains:
 
 ### Core Concepts
 
-| Concept | AISOP Equivalent | Traditional Equivalent |
-|---------|------------------|----------------------|
-| Mermaid graph | Control flow | `if/else`, `switch`, loops |
+| Concept | AISOP/AISIP Equivalent | Traditional Equivalent |
+|---------|------------------------|----------------------|
+| Mermaid graph (AISOP) / JSON graph (AISIP) | Control flow | `if/else`, `switch`, loops |
 | Function steps | Function body | Method implementation |
 | Constraints | Type checking / assertions | `assert`, type annotations |
 | Error field | Exception handling | `try/catch` |
@@ -125,11 +131,11 @@ protocol: "AIAP V1.0.0"
 authority: aiap.dev
 seed: aisop.dev
 executor: soulbot.dev
-axiom_0: Human_Sovereignty_and_Benefit
+axiom_0: Human_Sovereignty_and_Wellbeing
 governance_mode: NORMAL
 ```
 
-`axiom_0: Human_Sovereignty_and_Benefit` is the foundational axiom -- all AI programs under AIAP must prioritize human sovereignty and benefit above all other objectives.
+`axiom_0: Human_Sovereignty_and_Wellbeing` is the foundational axiom -- all AI programs under AIAP must prioritize Human Sovereignty and Wellbeing above all other objectives.
 
 ### ThreeDimTest Quality Scoring
 
@@ -223,9 +229,10 @@ soulbot/
 ### Key Features
 
 **AISOP Runtime**
-- Loads `.aisop.json` programs and builds executable prompts
+- Loads `.aisop.json` and `.aisip.json` programs and builds executable prompts
+- Auto-detects protocol format (AISOP Mermaid / AISIP JSON)
 - Validates program structure against AIAP schema
-- Executes Mermaid flowcharts step by step with constraint checking
+- Executes flow graphs step by step with constraint checking
 - Supports sub_mermaid decomposition and cross-module delegation
 
 **Multi-Provider LLM Support**
@@ -328,3 +335,7 @@ We welcome contributions to all projects under the AIXP Foundation. See individu
 ---
 
 *AIXP Foundation -- Building the exoskeleton for safe, governable AI.*
+
+---
+
+Align Axiom 0: Human Sovereignty and Wellbeing.
