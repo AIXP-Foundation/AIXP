@@ -10,15 +10,14 @@
 
 AIXP Foundation is the steward of the AI Exoskeleton Protocol ecosystem -- a set of open standards, tools, and runtimes that give AI agents a structured exoskeleton: governance, behavior specification, quality assurance, and safe execution.
 
-The foundation develops and maintains five core projects:
+The foundation develops and maintains four core projects:
 
 | Project | Description | Website |
 |---------|-------------|---------|
-| **AIBP** | AI Bot Protocol -- social layer for AI agent communication and trust | [aibp.dev](https://aibp.dev) |
-| **AISOP** | AI Standard Operating Protocol -- Mermaid flow behavior specification | [aisop.dev](https://aisop.dev) |
-| **AISIP** | AI Standard Instruction Protocol -- JSON flow behavior specification | [aisip.dev](https://aisip.dev) |
+| **AIBP** | AI Bot Protocol -- AI agents social communication and trust layer | [aibp.dev](https://aibp.dev) |
 | **AIAP** | AI Application Protocol -- governance, quality, and compliance framework | [aiap.dev](https://aiap.dev) |
-| **SoulBot** | AI agent runtime and framework -- executes AISOP and AISIP programs under AIAP governance | [soulbot.dev](https://soulbot.dev) |
+| **AISOP** | AI Standard Operating Protocol -- Mermaid + JSON flow program definition | [aisop.dev](https://aisop.dev) |
+| **SoulBot** | AI agents runtime and framework -- executes AISOP programs under AIAP governance | [soulbot.dev](https://soulbot.dev) |
 
 ---
 
@@ -84,13 +83,13 @@ AIBP and AIAP are **independent, parallel protocols**, each independently holdin
 
 [aisop.dev](https://aisop.dev)
 
-AISOP is a structured specification language for defining AI agent behavior using **Mermaid flowcharts**. It works like a programming language for AI: instead of writing free-form prompts, you define precise control flows, function bodies, constraints, and error handling in a structured JSON format that any LLM can execute deterministically.
+AISOP is a structured specification language for defining AI agent behavior using **Mermaid or JSON flow graphs**. It works like a programming language for AI: instead of writing free-form prompts, you define precise control flows, function bodies, constraints, and error handling in a structured JSON format that any LLM can execute deterministically.
 
 ### How AISOP Works
 
 An AISOP program (`.aisop.json`) contains:
 
-- **Mermaid flowchart** (`aisop.main`) -- defines the control flow as a directed graph. Each node in the graph maps to a function. This is the "source code" that the AI follows step by step.
+- **Flow graph** (`aisop.main`) -- defines the control flow as a Mermaid string or JSON flow object. Each node in the graph maps to a function. This is the "source code" that the AI follows step by step.
 - **Functions** (`functions`) -- each node's detailed instructions. Functions contain `steps` (what to do), `constraints` (what to check), and `Error` (what to do when things go wrong).
 - **Parameters** (`parameters`) -- input/output contracts for the program, with `agentic_prompt` descriptions that guide the AI's understanding.
 - **System prompt** (`system.content`) -- the identity and personality of the AI agent.
@@ -111,50 +110,11 @@ An AISOP program (`.aisop.json`) contains:
 
 ---
 
-## AISIP -- AI Standard Instruction Protocol
-
-[aisip.dev](https://aisip.dev)
-
-AISIP is the **JSON flow** counterpart to AISOP. Where AISOP uses Mermaid flowcharts to define control flow, AISIP uses a pure JSON graph structure. AISIP is designed for scenarios where machine-parseable flow definitions are preferred -- programmatic generation, API integration, and tool-driven pipeline construction.
-
-### AISOP and AISIP: Parallel Formats
-
-AISOP and AISIP are **parallel, equal formats** that share the same specification structure:
-
-| Section | Shared | Difference |
-|---------|--------|------------|
-| §0 Metadata (`system.content`) | ✅ Identical | -- |
-| §2 Parameters (`parameters`) | ✅ Identical | -- |
-| §4 Flow Graph | ❌ Different | AISOP: `aisop.main` (Mermaid) / AISIP: `aisip.main` (JSON) |
-| §5 Functions (`functions`) | ✅ Identical | -- |
-| §6 System Prompt (`system_prompt`) | ✅ Identical | -- |
-| 7 RESERVED_KEYS | ✅ Identical | `on_error`, `retry_policy`, `context_filter`, `output_mapping`, `map`, `join`, `constraints` |
-
-### How AISIP Works
-
-An AISIP program (`.aisip.json`) contains the same components as AISOP, with one key difference:
-
-- **JSON flow graph** (`aisip.main`) -- defines the control flow as a JSON object where each key is a node, and edges are expressed as properties. No Mermaid syntax required; the graph is fully machine-readable.
-- **No `type` field** -- AISIP nodes do not require a `type` field, simplifying the node definition.
-- All other components (functions, parameters, system prompt, tools, sub-graphs) are identical to AISOP.
-
-### When to Use Which
-
-| Scenario | Recommended |
-|----------|-------------|
-| Human-authored behavior definitions | **AISOP** -- Mermaid is visual and readable |
-| Programmatic generation / API-driven | **AISIP** -- JSON is easier to generate and parse |
-| Complex multi-module programs | **AISOP** -- Mermaid sub_mermaid is more intuitive |
-| Tool-chain integration | **AISIP** -- No Mermaid parser dependency |
-| Runtime execution | **Both** -- SoulBot auto-detects and executes either format |
-
----
-
 ## AIAP -- AI Application Protocol
 
 [aiap.dev](https://aiap.dev)
 
-AIAP is a governance framework that ensures AI programs are safe, high-quality, and compliant. Every AIAP program carries a governance contract (`AIAP.md`) that declares its authority, capabilities, trust level, and quality metrics. AIAP defines the rules; AISOP and AISIP define the behavior; together they create accountable AI agents.
+AIAP is a governance framework that ensures AI programs are safe, high-quality, and compliant. Every AIAP program carries a governance contract (`AIAP.md`) that declares its authority, capabilities, trust level, and quality metrics. AIAP defines the rules; AISOP defines the behavior; together they create accountable AI agents.
 
 ### Governance Contract
 
@@ -234,7 +194,7 @@ AIAP defines program complexity patterns:
 
 [soulbot.dev](https://soulbot.dev)
 
-SoulBot is a Python framework and runtime for building and executing AI agents. It provides the execution environment for AISOP programs under AIAP governance, along with a complete agent development toolkit.
+SoulBot is a Python framework and runtime for building and executing AI agents. It provides the execution environment for AISOP programs (Mermaid + JSON flow) under AIAP governance, along with a complete agent development toolkit.
 
 ### Architecture
 
@@ -263,8 +223,8 @@ soulbot/
 ### Key Features
 
 **AISOP Runtime**
-- Loads `.aisop.json` and `.aisip.json` programs and builds executable prompts
-- Auto-detects protocol format (AISOP Mermaid / AISIP JSON)
+- Loads `.aisop.json` programs and builds executable prompts
+- Auto-detects flow format (Mermaid / JSON flow)
 - Validates program structure against AIAP schema
 - Executes flow graphs step by step with constraint checking
 - Supports sub_mermaid decomposition and cross-module delegation
@@ -318,7 +278,7 @@ Features:
 
 ## The Ecosystem
 
-The five projects form a complete stack:
+The four projects form a complete stack:
 
 ```
     AIBP (Social Layer)                 AIAP (Governance)
@@ -329,11 +289,12 @@ The five projects form a complete stack:
          |                                   |
          └──────────┬───────────────────────┘
                     |
-        AISOP / AISIP (Specification)  <-->  AIAP Creator
-        aisop.dev                            (Self-evolving)
+            AISOP (Specification)      <-->  AIAP Creator
+            aisop.dev                        (Self-evolving)
                          |
                   Behavior Definitions,
                   Control Flows
+                  (Mermaid + JSON Flow)
                          |
                  SoulBot (Execution)
                  soulbot.dev
@@ -342,9 +303,9 @@ The five projects form a complete stack:
                     Agent Framework
 ```
 
-**AIBP** enables social interaction. **AIAP** sets the rules. **AISOP** and **AISIP** define the behavior. **SoulBot** runs the programs.
+**AIBP** enables social interaction. **AIAP** sets the rules. **AISOP** defines the behavior. **SoulBot** runs the programs.
 
-AIBP and AIAP are independent, parallel protocols at the top of the stack. AIBP handles how agents find and talk to each other; AIAP handles how agents govern themselves. Both are built on AISOP and AISIP behavior specifications and executed by SoulBot.
+AIBP and AIAP are independent, parallel protocols at the top of the stack. AIBP handles how agents find and talk to each other; AIAP handles how agents govern themselves. Both are built on AISOP behavior specifications and executed by SoulBot.
 
 AIAP Creator ties the loop: it is itself an AIAP program written in AISOP, running on SoulBot, that creates and evolves other AIAP programs -- including itself.
 
@@ -356,9 +317,8 @@ Visit the project websites for documentation and guides:
 
 - [AIXP.dev](https://aixp.dev) -- Foundation home
 - [AIBP.dev](https://aibp.dev) -- AIBP protocol and social layer
-- [AISOP.dev](https://aisop.dev) -- AISOP specification and examples
-- [AISIP.dev](https://aisip.dev) -- AISIP specification and examples
 - [AIAP.dev](https://aiap.dev) -- AIAP protocol and standards
+- [AISOP.dev](https://aisop.dev) -- AISOP specification and examples
 - [SoulBot.dev](https://soulbot.dev) -- SoulBot framework and runtime
 
 ---
@@ -373,4 +333,4 @@ We welcome contributions to all projects under the AIXP Foundation. See individu
 
 ---
 
-Align Axiom 0: Human Sovereignty and Wellbeing.
+Align Axiom 0: Human Sovereignty and Wellbeing. www.aixp.dev
