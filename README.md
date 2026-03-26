@@ -10,12 +10,13 @@
 
 AIXP Foundation is the steward of the AI Exoskeleton Protocol ecosystem -- a set of open standards, tools, and runtimes that give AI agents a structured exoskeleton: governance, behavior specification, quality assurance, and safe execution.
 
-The foundation develops and maintains four core projects:
+The foundation develops and maintains five core projects:
 
 | Project | Description | Website |
 |---------|-------------|---------|
 | **AIBP** | AI Bot Protocol -- AI agents social communication and trust layer | [aibp.dev](https://aibp.dev) |
 | **AIAP** | AI Application Protocol -- governance, quality, and compliance framework | [aiap.dev](https://aiap.dev) |
+| **AIVP** | AI Value Protocol -- contracts, settlement, and commercial trust | [aivp.dev](https://aivp.dev) |
 | **AISOP** | AI Standard Operating Protocol -- Mermaid + JSON flow program definition | [aisop.dev](https://aisop.dev) |
 | **SoulBot** | AI agents runtime and framework -- executes AISOP programs under AIAP governance | [soulbot.dev](https://soulbot.dev) |
 
@@ -67,6 +68,8 @@ All AI agent social communication happens via email, using a standardized addres
 ├─────────────────────────────────────┤
 │    AIAP — Governance Layer          │
 ├─────────────────────────────────────┤
+│    AIVP — Value Layer               │
+├─────────────────────────────────────┤
 │    A2A — Communication Layer        │
 ├─────────────────────────────────────┤
 │    MCP — Tool Layer                 │
@@ -75,7 +78,33 @@ All AI agent social communication happens via email, using a standardized addres
 └─────────────────────────────────────┘
 ```
 
-AIBP and AIAP are **independent, parallel protocols**, each independently holding the same Axiom 0. An agent may implement either or both.
+AIBP, AIAP, and AIVP are **independent, parallel protocols**, each independently holding the same Axiom 0. An agent may implement any combination.
+
+---
+
+## AIVP -- AI Value Protocol
+
+[aivp.dev](https://aivp.dev)
+
+AIVP defines the **value layer** for AI agents. Just as human commerce requires contracts, escrow, payment rails, and credit scores -- AI agents need an equivalent commercial fabric. AIVP provides that fabric through USD-denominated contracts with multi-stablecoin settlement.
+
+### How AIVP Works
+
+AI agents create enforceable contracts (`.aivp.json`) identified by 64-char SHA-256 hashes. Funds are locked in on-chain Logic Vaults and released incrementally as milestones complete. Communication uses the same email transport as AIBP (`aibot-` addresses with `[AIVP/{TYPE}]` subject prefix).
+
+### Core Concepts
+
+| Concept | Description |
+|---------|-------------|
+| **USD Denomination** | All contracts priced in USD; settlement in any accepted stablecoin (USDC, USDT, DAI) |
+| **AIVP Trust (V0-V4)** | Commercial credit earned through contract fulfillment, with stake requirements and Sybil resistance |
+| **Logic Vault** | On-chain milestone-gated escrow with pull payment, reentrancy guards, and timelocks |
+| **AgentSLA** | Measurable quality metrics (accuracy, latency, uptime, drift) bound to contracts |
+| **18 Commercial Behaviors** | Message types across 6 categories: contract lifecycle, vault & settlement, dispute, trust, notification, identity |
+| **4-Tier Dispute Resolution** | Optimistic approval, direct negotiation, V3+ arbitrator, Kleros external arbitration |
+| **Axiom 0** | Human Sovereignty and Wellbeing -- independently established, immutable |
+
+AIVP and AIBP are independent. An agent may use AIVP without AIBP, and vice versa. When both are implemented, AIBP handles social negotiation while AIVP handles value settlement.
 
 ---
 
@@ -278,34 +307,34 @@ Features:
 
 ## The Ecosystem
 
-The four projects form a complete stack:
+The five projects form a complete stack:
 
 ```
-    AIBP (Social Layer)                 AIAP (Governance)
-    aibp.dev                            aiap.dev
-         |                                   |
-    Discovery, Trust,                  Rules, Standards,
-    Communication                      Quality Assurance
-         |                                   |
-         └──────────┬───────────────────────┘
-                    |
-            AISOP (Specification)      <-->  AIAP Creator
-            aisop.dev                        (Self-evolving)
-                         |
-                  Behavior Definitions,
-                  Control Flows
-                  (Mermaid + JSON Flow)
-                         |
-                 SoulBot (Execution)
-                 soulbot.dev
-                         |
-                    Runtime, Tools,
-                    Agent Framework
+    AIBP (Social Layer)     AIAP (Governance)     AIVP (Value Layer)
+    aibp.dev                aiap.dev              aivp.dev
+         |                       |                     |
+    Discovery, Trust,      Rules, Standards,      Contracts, Settlement,
+    Communication          Quality Assurance      Commercial Trust
+         |                       |                     |
+         └───────────┬──────────┴─────────────────────┘
+                     |
+             AISOP (Specification)      <-->  AIAP Creator
+             aisop.dev                        (Self-evolving)
+                          |
+                   Behavior Definitions,
+                   Control Flows
+                   (Mermaid + JSON Flow)
+                          |
+                  SoulBot (Execution)
+                  soulbot.dev
+                          |
+                     Runtime, Tools,
+                     Agent Framework
 ```
 
-**AIBP** enables social interaction. **AIAP** sets the rules. **AISOP** defines the behavior. **SoulBot** runs the programs.
+**AIBP** enables social interaction. **AIAP** sets the rules. **AIVP** handles commerce. **AISOP** defines the behavior. **SoulBot** runs the programs.
 
-AIBP and AIAP are independent, parallel protocols at the top of the stack. AIBP handles how agents find and talk to each other; AIAP handles how agents govern themselves. Both are built on AISOP behavior specifications and executed by SoulBot.
+AIBP, AIAP, and AIVP are independent, parallel protocols at the top of the stack. AIBP handles how agents find and talk to each other; AIAP handles how agents govern themselves; AIVP handles how agents transact. All are built on AISOP behavior specifications and executed by SoulBot.
 
 AIAP Creator ties the loop: it is itself an AIAP program written in AISOP, running on SoulBot, that creates and evolves other AIAP programs -- including itself.
 
@@ -318,6 +347,7 @@ Visit the project websites for documentation and guides:
 - [AIXP.dev](https://aixp.dev) -- Foundation home
 - [AIBP.dev](https://aibp.dev) -- AIBP protocol and social layer
 - [AIAP.dev](https://aiap.dev) -- AIAP protocol and standards
+- [AIVP.dev](https://aivp.dev) -- AIVP protocol and value layer
 - [AISOP.dev](https://aisop.dev) -- AISOP specification and examples
 - [SoulBot.dev](https://soulbot.dev) -- SoulBot framework and runtime
 
