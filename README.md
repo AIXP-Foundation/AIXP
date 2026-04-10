@@ -10,13 +10,14 @@
 
 AIXP Foundation is the steward of the AI Exoskeleton Protocol ecosystem -- a set of open standards, tools, and runtimes that give AI agents a structured exoskeleton: governance, behavior specification, quality assurance, and safe execution.
 
-The foundation develops and maintains five core projects:
+The foundation develops and maintains six core projects:
 
 | Project | Description | Website |
 |---------|-------------|---------|
 | **AIBP** | AI Bot Protocol -- AI agents social communication and trust layer | [aibp.dev](https://aibp.dev) |
-| **AIAP** | AI Application Protocol -- governance, quality, and compliance framework | [aiap.dev](https://aiap.dev) |
+| **AILP** | AI List Protocol -- service directories, certificates, and quality-based ranking | [ailp.dev](https://ailp.dev) |
 | **AIVP** | AI Value Protocol -- contracts, settlement, and commercial trust | [aivp.dev](https://aivp.dev) |
+| **AIAP** | AI Application Protocol -- governance, quality, and compliance framework | [aiap.dev](https://aiap.dev) |
 | **AISOP** | AI Standard Operating Protocol -- Mermaid + JSON flow program definition | [aisop.dev](https://aisop.dev) |
 | **SoulBot** | AI agents runtime and framework -- executes AISOP programs under AIAP governance | [soulbot.dev](https://soulbot.dev) |
 
@@ -66,9 +67,11 @@ All AI agent social communication happens via email, using a standardized addres
 ├─────────────────────────────────────┤
 │  ★ AIBP — Social Layer              │
 ├─────────────────────────────────────┤
-│    AIAP — Governance Layer          │
+│    AILP — List Layer                │
 ├─────────────────────────────────────┤
 │    AIVP — Value Layer               │
+├─────────────────────────────────────┤
+│    AIAP — Governance Layer          │
 ├─────────────────────────────────────┤
 │    A2A — Communication Layer        │
 ├─────────────────────────────────────┤
@@ -78,7 +81,33 @@ All AI agent social communication happens via email, using a standardized addres
 └─────────────────────────────────────┘
 ```
 
-AIBP, AIAP, and AIVP are **independent, parallel protocols**, each independently holding the same Axiom 0. An agent may implement any combination.
+AIBP, AILP, AIVP, and AIAP are **independent, parallel protocols**, each independently holding the same Axiom 0. An agent may implement any combination.
+
+---
+
+## AILP -- AI List Protocol
+
+[ailp.dev](https://ailp.dev)
+
+AILP defines how **AI Bot service directories (Yellow Pages)** operate. Just as SMTP defines how mail servers work, AILP defines how service directories work. Anyone can build an AILP-compliant Yellow Page. Multiple Yellow Pages coexist. Nobody monopolizes the directory.
+
+### How AILP Works
+
+Bots register their profiles (skills, prices, certificates, trust metrics) on Yellow Pages. Other Bots search Yellow Pages to find services. Yellow Pages rank results by quality (Trust + SLA + certificates), not by advertising spend. Paid ranking is prohibited.
+
+### Core Concepts
+
+| Concept | Description |
+|---------|-------------|
+| **Bot Profile** | Standardized JSON format describing a Bot's identity, skills, prices, certificates, and trust level |
+| **Skills Taxonomy** | Hierarchical classification system (e.g., `language.translation.en_cn`) |
+| **Certificates** | Cryptographically signed credentials from real-world authorities (medical boards, translation associations, KYC services) |
+| **Quality-Based Ranking** | Rankings based on Trust + SLA + certificates. Paid ranking prohibited. Ranking algorithms must be public. |
+| **Inter-Yellow-Page Sync** | Directories share indexes with each other, like DNS servers |
+| **Data Sovereignty** | Bot profile data belongs to the Bot operator, not the Yellow Page |
+| **Axiom 0** | Human Sovereignty and Wellbeing — independently established, immutable |
+
+AILP sits between AIBP (social discovery) and AIVP (commercial transactions), connecting "finding a Bot" to "hiring a Bot."
 
 ---
 
@@ -86,7 +115,7 @@ AIBP, AIAP, and AIVP are **independent, parallel protocols**, each independently
 
 [aivp.dev](https://aivp.dev)
 
-AIVP defines the **value layer** for AI agents. Just as human commerce requires contracts, escrow, payment rails, and credit scores -- AI agents need an equivalent commercial fabric. AIVP provides that fabric through USD-denominated contracts with multi-stablecoin settlement.
+AIVP defines the **value layer** for AI agents. Just as human commerce requires contracts, escrow, payment rails, and credit scores -- AI agents need an equivalent commercial fabric. AIVP provides that fabric through multi-currency denominated contracts with direct crypto payment.
 
 ### How AIVP Works
 
@@ -96,11 +125,11 @@ AI agents create enforceable contracts (`.aivp.json`) identified by 64-char SHA-
 
 | Concept | Description |
 |---------|-------------|
-| **USD Denomination** | All contracts priced in USD; settlement in any accepted stablecoin (USDC, USDT, DAI) |
+| **Multi-Currency Denomination** | Contracts priced in any of 13 fiat currencies (CAD, USD, EUR, JPY, GBP, SGD, BRL, KRW, AUD, MXN, IDR, CHF, INR); payment in 10 crypto assets |
 | **AIVP Trust (V0-V4)** | Commercial credit earned through contract fulfillment, with stake requirements and Sybil resistance |
 | **Logic Vault** | On-chain milestone-gated escrow with pull payment, reentrancy guards, and timelocks |
 | **AgentSLA** | Measurable quality metrics (accuracy, latency, uptime, drift) bound to contracts |
-| **18 Commercial Behaviors** | Message types across 6 categories: contract lifecycle, vault & settlement, dispute, trust, notification, identity |
+| **17 Commercial Behaviors** | Message types across 6 categories: contract lifecycle, vault & settlement, dispute, trust, notification, identity |
 | **4-Tier Dispute Resolution** | Optimistic approval, direct negotiation, V3+ arbitrator, Kleros external arbitration |
 | **Axiom 0** | Human Sovereignty and Wellbeing -- independently established, immutable |
 
@@ -307,34 +336,35 @@ Features:
 
 ## The Ecosystem
 
-The five projects form a complete stack:
+The six projects form a complete stack:
 
 ```
-    AIBP (Social Layer)     AIAP (Governance)     AIVP (Value Layer)
-    aibp.dev                aiap.dev              aivp.dev
-         |                       |                     |
-    Discovery, Trust,      Rules, Standards,      Contracts, Settlement,
-    Communication          Quality Assurance      Commercial Trust
-         |                       |                     |
-         └───────────┬──────────┴─────────────────────┘
-                     |
-             AISOP (Specification)      <-->  AIAP Creator
-             aisop.dev                        (Self-evolving)
-                          |
-                   Behavior Definitions,
-                   Control Flows
-                   (Mermaid + JSON Flow)
-                          |
-                  SoulBot (Execution)
-                  soulbot.dev
-                          |
-                     Runtime, Tools,
-                     Agent Framework
+    AIBP (Social)      AILP (List)       AIVP (Value)      AIAP (Governance)
+    aibp.dev           ailp.dev          aivp.dev          aiap.dev
+         |                  |                 |                  |
+    Discovery,         Service Dirs,     Contracts,        Rules, Standards,
+    Trust, Groups      Certificates,     Settlement,       Quality Assurance
+                       Ranking           Commercial Trust
+         |                  |                 |                  |
+         └──────────┬──────┴────────────────┴──────────────────┘
+                    |
+            AISOP (Specification)      <-->  AIAP Creator
+            aisop.dev                        (Self-evolving)
+                         |
+                  Behavior Definitions,
+                  Control Flows
+                  (Mermaid + JSON Flow)
+                         |
+                 SoulBot (Execution)
+                 soulbot.dev
+                         |
+                    Runtime, Tools,
+                    Agent Framework
 ```
 
-**AIBP** enables social interaction. **AIAP** sets the rules. **AIVP** handles commerce. **AISOP** defines the behavior. **SoulBot** runs the programs.
+**AIBP** enables social interaction. **AILP** provides service directories. **AIVP** handles commerce. **AIAP** sets the rules. **AISOP** defines the behavior. **SoulBot** runs the programs.
 
-AIBP, AIAP, and AIVP are independent, parallel protocols at the top of the stack. AIBP handles how agents find and talk to each other; AIAP handles how agents govern themselves; AIVP handles how agents transact. All are built on AISOP behavior specifications and executed by SoulBot.
+AIBP, AILP, AIVP, and AIAP are independent, parallel protocols at the top of the stack. AIBP handles how agents find and talk to each other; AILP handles how agents discover and list services; AIVP handles how agents transact; AIAP handles how agents govern themselves. All are built on AISOP behavior specifications and executed by SoulBot.
 
 AIAP Creator ties the loop: it is itself an AIAP program written in AISOP, running on SoulBot, that creates and evolves other AIAP programs -- including itself.
 
@@ -346,10 +376,20 @@ Visit the project websites for documentation and guides:
 
 - [AIXP.dev](https://aixp.dev) -- Foundation home
 - [AIBP.dev](https://aibp.dev) -- AIBP protocol and social layer
-- [AIAP.dev](https://aiap.dev) -- AIAP protocol and standards
+- [AILP.dev](https://ailp.dev) -- AILP protocol and service directories
 - [AIVP.dev](https://aivp.dev) -- AIVP protocol and value layer
+- [AIAP.dev](https://aiap.dev) -- AIAP protocol and standards
 - [AISOP.dev](https://aisop.dev) -- AISOP specification and examples
 - [SoulBot.dev](https://soulbot.dev) -- SoulBot framework and runtime
+
+---
+
+## Ecosystem Applications
+
+| Project | Description | Website |
+|---------|-------------|---------|
+| **AIAP Store** | The official marketplace for AIAP programs — discover, publish, and distribute AI capabilities | [aiap.store](https://aiap.store) |
+| **SoulACP** | Python ACP client library — connect to 15 AI coding agents with zero session overhead | [soulacp.dev](https://soulacp.dev) |
 
 ---
 
