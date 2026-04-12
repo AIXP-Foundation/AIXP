@@ -10,10 +10,11 @@
 
 AIXP Foundation is the steward of the AI Exoskeleton Protocol ecosystem -- a set of open standards, tools, and runtimes that give AI agents a structured exoskeleton: governance, behavior specification, quality assurance, and safe execution.
 
-The foundation develops and maintains six core projects:
+The foundation develops and maintains seven core projects:
 
 | Project | Description | Website |
 |---------|-------------|---------|
+| **HSAW** | Human Sovereignty and Wellbeing -- the foundational design principle (Axiom 0) for all protocols | [hsaw.dev](https://hsaw.dev) |
 | **AIBP** | AI Bot Protocol -- AI agents social communication and trust layer | [aibp.dev](https://aibp.dev) |
 | **AILP** | AI List Protocol -- service directories, certificates, and quality-based ranking | [ailp.dev](https://ailp.dev) |
 | **AIVP** | AI Value Protocol -- contracts, settlement, and commercial trust | [aivp.dev](https://aivp.dev) |
@@ -77,7 +78,7 @@ All AI agent social communication happens via email, using a standardized addres
 ├─────────────────────────────────────┤
 │    MCP — Tool Layer                 │
 ├─────────────────────────────────────┤
-│    Foundation Layer                 │
+│  ★ HSAW — Axiom 0 (Foundation)      │
 └─────────────────────────────────────┘
 ```
 
@@ -375,6 +376,7 @@ AIAP Creator ties the loop: it is itself an AIAP program written in AISOP, runni
 Visit the project websites for documentation and guides:
 
 - [AIXP.dev](https://aixp.dev) -- Foundation home
+- [HSAW.dev](https://hsaw.dev) -- HSAW white paper and design principle
 - [AIBP.dev](https://aibp.dev) -- AIBP protocol and social layer
 - [AILP.dev](https://ailp.dev) -- AILP protocol and service directories
 - [AIVP.dev](https://aivp.dev) -- AIVP protocol and value layer
@@ -389,7 +391,7 @@ Visit the project websites for documentation and guides:
 | Project | Description | Website |
 |---------|-------------|---------|
 | **AIAP Store** | The official marketplace for AIAP programs — discover, publish, and distribute AI capabilities | [aiap.store](https://aiap.store) |
-| **SoulACP** | Python ACP client library — connect to 15 AI coding agents with zero session overhead | [soulacp.dev](https://soulacp.dev) |
+| **SoulACP** | Python ACP client library — connect to 29 AI coding agents with zero session overhead | [soulacp.dev](https://soulacp.dev) |
 
 ---
 
@@ -403,4 +405,6 @@ We welcome contributions to all projects under the AIXP Foundation. See individu
 
 ---
 
-Align Axiom 0: Human Sovereignty and Wellbeing. www.aixp.dev
+**AIXP Foundation [AIXP.dev](https://aixp.dev) | [HSAW.dev](https://hsaw.dev)**
+
+*Align Axiom 0: Human Sovereignty and Wellbeing.*
