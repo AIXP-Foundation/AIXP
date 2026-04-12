@@ -337,7 +337,7 @@ Features:
 
 ## The Ecosystem
 
-The six projects form a complete stack:
+The seven projects form a complete stack:
 
 ```
     AIBP (Social)      AILP (List)       AIVP (Value)      AIAP (Governance)
